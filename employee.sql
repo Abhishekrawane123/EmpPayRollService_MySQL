@@ -313,3 +313,22 @@ mysql> select * from employeepayroll where salary = '50000';
 |     4 | Abhishek |  50000 | Chemistry     | Manrulpir road, Barshitakli | 7767882171 | M      | 2016-04-01 | 50000       |         20000 |          2000 |         4000 |     24000 |
 +-------+----------+--------+---------------+-----------------------------+------------+--------+------------+-------------+---------------+---------------+--------------+-----------+
 1 row in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mysql> create table company(companyID int not null, companyName varchar(20) not null, primary key(companyID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table employee(empID int not null, empName varchar(50) not null, empPhone long, companyID int not null, primary key(empID), foreign key(companyID) references company(companyID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table employee(empID int not null, empName varchar(50) not null, empPhone long, companyID int not null, primary key(empID), foreign key(companyID) references company(companyID));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table department(empID int, departmentID int primary key, departmentName varchar(40), foreign key(empID) references employee(empID));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table emppayroll(empID int, basicpay double, taxablepay double, incometax double, netpay double, primary key(basicpay), foreign key(empID) references employee(empID));
+Query OK, 0 rows affected (0.07 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
